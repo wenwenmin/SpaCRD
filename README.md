@@ -29,8 +29,9 @@ Given the outstanding performance of large pre-trained general-purpose foundatio
 Please follow these steps to integrate UNI into the pipeline:
 - Log in to Hugging Face and obtain your **access token**.
 - Paste your token into the 32 line of code in [`UNI_histology_extractor.py`](UNI_histology_extractor.py):
-     ```python
+   ```shell
    login('The login you need to apply for')  # Replace with your actual token
+   ```
   
 🔒 Note: Do not share your token publicly. It is tied to your Hugging Face account and grants access to restricted models.
 
@@ -41,7 +42,8 @@ The training is conducted on the **STHBC** dataset, and inference is performed o
 
 To run the full CTR detection pipeline, simply execute:
 
-     ```python
+   ```shell
    python main.py
+   ```
 
 To apply the model to other datasets, simply refer to [`process_HBC.py`](process_HBC.py) or [`process_CRC.py`](process_CRC.py) for data preprocessing. After processing your raw data in the same format, update the corresponding data paths in `main.py`, and the pipeline can be executed just as easily.
