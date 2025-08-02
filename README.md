@@ -31,3 +31,5 @@ Please follow these steps to integrate UNI into the pipeline:
 - Paste your token into the 32 line of code in [`UNI_histology_extractor.py`](UNI_histology_extractor.py):
      ```python
    login('The login you need to apply for')  # Replace with your actual token
+- Once the token is inserted, the model weights will be automatically downloaded when you run the code.
+🔒 Note: Do not share your token publicly. It is tied to your Hugging Face account and grants access to restricted models.
