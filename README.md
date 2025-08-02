@@ -28,6 +28,6 @@ The 10X Visium Human Breast Cancer dataset (ViHBC) are available in: [https://ze
 Given the outstanding performance of large pre-trained general-purpose foundation models in clinical tasks, we use UNI as the backbone feature extractor. Before using SpaCRD, you need to apply to UNI for permission to access the model weights: [https://huggingface.co/mahmoodlab/UNI](https://huggingface.co/mahmoodlab/UNI).
 Please follow these steps to integrate UNI into the pipeline:
 - Log in to Hugging Face and obtain your **access token**.
-- Paste your token into the corresponding line of code in [`UNI_histology_extractor.py`](UNI_histology_extractor.py):
+- Paste your token into the 32 line of code in [`UNI_histology_extractor.py`](UNI_histology_extractor.py):
      ```python
    login('The login you need to apply for')  # Replace with your actual token
