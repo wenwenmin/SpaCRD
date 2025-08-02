@@ -35,4 +35,11 @@ Please follow these steps to integrate UNI into the pipeline:
 🔒 Note: Do not share your token publicly. It is tied to your Hugging Face account and grants access to restricted models.
 
 ## Usage for CTR Detection
+We provide a demo to demonstrate how to perform **CTR detection** using our framework.
 
+The training is conducted on the **STHBC** dataset, and inference is performed on the **VIHBC** dataset. All the required data has been pre-organized under the [`data/`](data) directory.
+
+To run the full CTR detection pipeline, simply execute:
+
+```bash
+python main.py
