@@ -1,3 +1,4 @@
+import argparse
 import torch
 import numpy as np
 from train import get_model_CL as train_load_model_CL
@@ -118,7 +119,7 @@ def main(dir, train_names, test_name, epoch, device='cuda', lr=1e-4, batch_size=
     set_all_seeds(seed)
 
     all_samples = train_names
-    data = np.load(f"{dir}train_dataset_ST_HER2ST.npz", allow_pickle=True)
+    data = np.load(f"{dir}train_dataset_{test_name}.npz", allow_pickle=True)
 
     all_img = data['img_feats']
     all_expr = data['gene_exprs']
@@ -141,7 +142,7 @@ def main(dir, train_names, test_name, epoch, device='cuda', lr=1e-4, batch_size=
     end = time.time()
     print(f'training time: {end-start}')
 
-    test_data = np.load(f"{dir}test_dataset_Visium_HBC.npz", allow_pickle=True)
+    test_data = np.load(f"{dir}test_dataset_{test_name}.npz", allow_pickle=True)
     test_img = test_data['img_feats']
     test_expr = np.float32(test_data['gene_exprs'])
     test_pos = test_data['coords']
@@ -160,48 +161,37 @@ def main(dir, train_names, test_name, epoch, device='cuda', lr=1e-4, batch_size=
     print(f"Seed {seed:4d}: AUC={auc:.4f}, AP={ap:.4f}, F1={f1:.4f}")
     return auc, ap, f1
 
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--pretrain_dir', type=str, default='data/')
+    parser.add_argument('--test_name', type=str, default='Visium_HBC')
+    parser.add_argument('--sections', type=str, nargs='+', default=['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'])
+    args = parser.parse_args()
 
-# ###############################################################################################
-# ###############################################################################################
-seeds = [42, 123, 456, 789, 2026]
-aucs, aps, f1s = [], [], []
-pretrain_dir = 'data/'
-sections = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
-test_name = 'Visium_HBC'
-for i in seeds:
-    auc, ap, f1 = main(pretrain_dir, sections, test_name,
-                       epoch=100, device='cuda', lr=1e-5, batch_size=512, CL_output=512, seed=i)
-    aucs.append(auc)
-    aps.append(ap)
-    f1s.append(f1)
+    seeds = [42, 123, 456, 789, 2026]
+    aucs, aps, f1s = [], [], []
+    for i in seeds:
+        auc, ap, f1 = main(args.pretrain_dir, args.sections, args.test_name,
+                           epoch=100, device='cuda', lr=1e-5, batch_size=512, CL_output=512, seed=i)
+        aucs.append(auc)
+        aps.append(ap)
+        f1s.append(f1)
 
-print("="*60)
-print("Individual Results for Each Seed:")
-print("="*60)
-for i, seed in enumerate(seeds):
-   print(f"Seed {seed:4d}: AUC={aucs[i]:.4f}, AP={aps[i]:.4f}, F1={f1s[i]:.4f}")
+    print("="*60)
+    print("Individual Results for Each Seed:")
+    print("="*60)
+    for i, seed in enumerate(seeds):
+       print(f"Seed {seed:4d}: AUC={aucs[i]:.4f}, AP={aps[i]:.4f}, F1={f1s[i]:.4f}")
 
-auc_mean, auc_std = np.mean(aucs), np.std(aucs)
-ap_mean, ap_std = np.mean(aps), np.std(aps)
-f1_mean, f1_std = np.mean(f1s), np.std(f1s)
+    auc_mean, auc_std = np.mean(aucs), np.std(aucs)
+    ap_mean, ap_std = np.mean(aps), np.std(aps)
+    f1_mean, f1_std = np.mean(f1s), np.std(f1s)
 
-print("\n" + "="*60)
-print("Results for Paper (Mean ± Std):")
-print("="*60)
-print(f"AUC: {auc_mean:.3f}±{auc_std:.3f}")
-print(f"AP:  {ap_mean:.3f}±{ap_std:.3f}")
-print(f"F1:  {f1_mean:.3f}±{f1_std:.3f}")
+    print("\n" + "="*60)
+    print("Results for Paper (Mean ± Std):")
+    print("="*60)
+    print(f"AUC: {auc_mean:.3f}±{auc_std:.3f}")
+    print(f"AP:  {ap_mean:.3f}±{ap_std:.3f}")
+    print(f"F1:  {f1_mean:.3f}±{f1_std:.3f}")
 
-results_dict = {
-   'seeds': seeds,
-   'aucs': aucs,
-   'aps': aps,
-   'f1s': f1s,
-   'summary': {
-       'auc_mean': auc_mean, 'auc_std': auc_std,
-       'ap_mean': ap_mean, 'ap_std': ap_std,
-       'f1_mean': f1_mean, 'f1_std': f1_std
-   }
-}
-
-print(f"Peak memory usage: {torch.cuda.max_memory_allocated() / (1024 ** 2):.2f} MB")
+    print(f"Peak memory usage: {torch.cuda.max_memory_allocated() / (1024 ** 2):.2f} MB")
