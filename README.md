@@ -46,7 +46,7 @@ To run the full CTR detection pipeline, simply execute:
    python main.py --pretrain_dir data/ --test_name Visium_HBC --sections A B C D E F G H
    ```
 
-🔥 To apply the model to other datasets, simply refer to [`process_HBC.py`](process_HBC.py) or [`process_CRC.py`](process_CRC.py) for data preprocessing. After processing your raw data in the same format, update the corresponding data paths in `main.py`, and the pipeline can be executed just as easily.
+🔥 To apply the model to other datasets, simply refer to [`process_HBC.py`](process_HBC.py) or [`process_CRC.py`](process_CRC.py) for data preprocessing. After processing your raw data in the same format, update the appropriate command-line arguments in `main.py`, and the pipeline can be executed just as easily.
 
 ## Contact details
 If you have any questions, please contact email@anonymized.com (SpaCRD are currently under anonymous review for AAAI 2026).
