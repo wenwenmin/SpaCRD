@@ -18,8 +18,8 @@ The ST human HER2-positive breast tumor datasets (STHBC) are available in: [http
 
 The 10X Visium Colorectal Cancer Visium datasets are available in: [https://zenodo.org/records/7760264](https://zenodo.org/records/7760264).
 
-The 10X Visium Human Breast Cancer dataset (ViHBC) are available in: [https://zenodo.org/records/10437391](https://zenodo.org/records/10437391).
-
 The 10X Visium Invasive Ductal Carcinoma dataset (IDC) are available in: [https://www.10xgenomics.com/datasets/invasive-ductal-carcinoma-stained-with-fluorescent-cd-3-antibody-1-standard-1-2-0](https://www.10xgenomics.com/datasets/invasive-ductal-carcinoma-stained-with-fluorescent-cd-3-antibody-1-standard-1-2-0).
 
 The Xenium Human Breast Cancer dataset (XeHBC) can be found at: [https://www.10xgenomics.com/products/xenium-in-situ/preview-dataset-human-breast](https://www.10xgenomics.com/products/xenium-in-situ/preview-dataset-human-breast).
+
+The 10X Visium Human Breast Cancer dataset (ViHBC) are available in: [https://zenodo.org/records/10437391](https://zenodo.org/records/10437391).
