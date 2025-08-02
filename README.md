@@ -43,3 +43,5 @@ To run the full CTR detection pipeline, simply execute:
 
 ```bash
 python main.py
+
+To apply the model to other datasets, simply refer to [`process_HBC.py`](process_HBC.py) or [`process_CRC.py`](process_CRC.py) for data preprocessing. After processing your raw data in the same format, update the corresponding data paths in `main.py`, and the pipeline can be executed just as easily.
