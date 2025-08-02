@@ -33,3 +33,6 @@ Please follow these steps to integrate UNI into the pipeline:
    login('The login you need to apply for')  # Replace with your actual token
   
 🔒 Note: Do not share your token publicly. It is tied to your Hugging Face account and grants access to restricted models.
+
+## Usage for CTR Detection
+
