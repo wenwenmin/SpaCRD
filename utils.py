@@ -3,6 +3,52 @@ import os
 import pandas as pd
 from sklearn import metrics
 import numpy as np
+from sklearn.mixture import GaussianMixture
+
+def gmm_threshold(data: np.ndarray) -> float:
+    """
+    Fit the data using a two-component Gaussian Mixture Model (GMM),
+    and return the intersection point between the means of the two Gaussians as the threshold.
+
+    Args:
+        data: A one-dimensional NumPy array containing the data to be classified.
+
+    Returns:
+        float: The threshold value.
+    """
+    data = data.reshape(-1, 1)
+    gmm = GaussianMixture(n_components=2, random_state=0)
+    gmm.fit(data)
+
+    means = np.sort(gmm.means_.flatten())
+    covs = gmm.covariances_.flatten()
+    weights = gmm.weights_.flatten()
+
+    # Parameters of the two Gaussian components
+    mu1, mu2 = means
+    sigma1, sigma2 = np.sqrt(covs[np.argsort(means)])
+    w1, w2 = weights[np.argsort(means)]
+
+    # Define the Gaussian probability density function
+    def gaussian(x, mu, sigma):
+        return (1 / (sigma * np.sqrt(2 * np.pi))) * np.exp(-0.5 * ((x - mu) / sigma) ** 2)
+
+    # Define the function for finding the intersection point:
+    # solve f(x) = w1*N(x|mu1,sigma1) - w2*N(x|mu2,sigma2) = 0
+    def func(x):
+        return w1 * gaussian(x, mu1, sigma1) - w2 * gaussian(x, mu2, sigma2)
+
+    # Use Brent's method to find the root between mu1 and mu2
+    from scipy.optimize import brentq
+
+    try:
+        thresh = brentq(func, mu1, mu2)
+    except ValueError:
+        # If no intersection is found, return the midpoint between the two means
+        thresh = (mu1 + mu2) / 2
+
+    return thresh
+
 def mkdir(path):
     dirname = os.path.dirname(path)
     if dirname != '':
@@ -18,7 +64,6 @@ def load_pickle(filename, verbose=True):
     with open(filename, 'rb') as file:
         x = pickle.load(file)
     return x
-
 
 def evaluate(y_true, y_score, pre=False):
     y_true = pd.Series(y_true)
@@ -42,4 +87,5 @@ def load_label(data_path):
         content = tf.read().strip()
         tokens = content.split()
         label = [int(i) for i in tokens if i != '']
+
     return label
