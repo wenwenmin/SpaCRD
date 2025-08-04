@@ -24,6 +24,8 @@ The Xenium Human Breast Cancer dataset (XeHBC) can be found at: [https://www.10x
 
 The 10X Visium Human Breast Cancer dataset (ViHBC) are available in: [https://zenodo.org/records/10437391](https://zenodo.org/records/10437391).
 
+⚠️ All processed datasets have been uploaded to Zenodo database. However, to comply with anonymity requirements during the review process of AAAI2026, uploader information cannot be disclosed. As a result, the public download link will be released after acceptance.
+
 ## Pre-trained mode UNI
 Given the outstanding performance of large pre-trained general-purpose foundation models in clinical tasks, we use UNI as the backbone feature extractor. Before using SpaCRD, you need to apply to UNI for permission to access the model weights: [https://huggingface.co/mahmoodlab/UNI](https://huggingface.co/mahmoodlab/UNI).
 Please follow these steps to integrate UNI into the pipeline:
