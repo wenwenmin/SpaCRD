@@ -119,11 +119,12 @@ def main(dir, train_names, test_name, epoch, device='cuda', lr=1e-4, batch_size=
     set_all_seeds(seed)
 
     all_samples = train_names
-    data = np.load(f"{dir}train_dataset_{test_name}.npz", allow_pickle=True)
+    data_gene = np.load(f"{dir}train_dataset_{test_name}.npz", allow_pickle=True)
+    data_fea_coo = np.load(f"{dir}train_dataset.npz", allow_pickle=True)
 
-    all_img = data['img_feats']
-    all_expr = data['gene_exprs']
-    all_pos = data['coords']
+    all_img = data_fea_coo['img_feats']
+    all_expr = data_gene['gene_exprs']
+    all_pos = data_fea_coo['coords']
 
 
     train_labels = []
@@ -195,3 +196,4 @@ if __name__ == '__main__':
     print(f"F1:  {f1_mean:.3f}±{f1_std:.3f}")
 
     print(f"Peak memory usage: {torch.cuda.max_memory_allocated() / (1024 ** 2):.2f} MB")
+
