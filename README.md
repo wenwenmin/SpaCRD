@@ -52,3 +52,6 @@ To run the full CTR detection pipeline, simply execute:
 
 ## Contact details
 If you have any questions, please contact xueshuailin@163.com.
+
+## Paper
+This repository contains the implementation for our work "SpaCRD: Multimodal Deep Fusion of Histology and Spatial Transcriptomics for Cancer Region Detection", accepted as **Oral** Presentation by **AAAI 2026**.
